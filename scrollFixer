@@ -1,0 +1,55 @@
+// declaring variables
+
+    var leftBlock = $("#left");
+
+    var rightBlock = $("#rightcont");
+    
+    var containerWrapper = $(".generalBottomContainer");
+
+    var topOffset = $("body").offset().top;
+
+    var leftFlag = leftBlock.offset().top + leftBlock.outerHeight(true);
+
+    var rightFlag = rightBlock.offset().top + rightBlock.outerHeight();
+
+    leftFlag = Math.floor(leftFlag);
+
+    rightFlag = Math.floor(rightFlag);
+
+    
+    // Vars that need update on scroll
+
+    var windowHeight = window.innerHeight;
+
+    var scrollTop = $(window).scrollTop();
+
+    var movingBottom = windowHeight + scrollTop;
+
+    containerWrapper.css("position", "relative");
+
+
+    // When movingBottom reaches either leftFlag or rightFlag
+    // it will stick the smaller block to the bottom of the window
+    // and keep it there until the movingBottom reaches the longer flag
+
+
+
+    $(window).scroll(function(){
+
+        windowHeight = window.innerHeight;
+
+        scrollTop = $(window).scrollTop();
+
+        movingBottom = windowHeight + scrollTop;
+        
+        if(movingBottom >= rightFlag && (leftFlag - movingBottom) > 0) {
+
+            rightBlock.css({
+                "position" : "absolute",
+                "bottom" : (leftFlag - movingBottom ) + "px",
+                "z-index" : "10"
+                });
+
+        }
+
+    });
